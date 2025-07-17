@@ -200,7 +200,7 @@ void noteManager() {
             FILE *f = fopen("notes.txt", "a");
             if (!f) { printf("Error opening notes file!\n"); return; }
             printf("Enter note (end with ~): ");
-            getchar(); // clear newline
+            getchar();
             fgets(buffer, sizeof(buffer), stdin);
             fprintf(f, "%s", buffer);
             fclose(f);
@@ -213,8 +213,11 @@ void noteManager() {
                 printf("- %s", buffer);
             }
             fclose(f);
+
         } else if (strcmp(choice, "exit") == 0) {
             break;
+
+
         } else {
             printf("Unknown option! Use write/read/exit.\n");
         }
@@ -266,11 +269,19 @@ int main() {
             printf(" sysinfo   - show system info\n");
             printf(" ip        - show local IP address\n");
             printf(" note      - simple note manager\n");
+            printf(" color      - sets text color to green\n");
+            printf(" cquit      - normal text color\n");
             printf(" quit/exit - exit program\n");
         }
         else if (strcmp(input, "quit") == 0 || strcmp(input, "exit") == 0) {
             printf("Goodbye!\n");
             break;
+        }
+        else if (strcmp(input , "color") == 0 || strcmp(input, "COLOR") == 0) {
+            setColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+        }
+        else if (strcmp(input, "cquit") == 0 || strcmp(input, "CQUIT") == 0) {
+            setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         }
         else {
             printf("Unknown command. Type 'help' for a list.\n");
@@ -280,3 +291,4 @@ int main() {
     setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     return 0;
 }
+
